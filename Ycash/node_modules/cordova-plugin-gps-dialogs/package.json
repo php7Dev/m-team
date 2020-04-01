@@ -1,0 +1,63 @@
+{
+  "_from": "cordova-plugin-gps-dialogs",
+  "_id": "cordova-plugin-gps-dialogs@1.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-Iy1oPP/XU2ZSSePtOBv89BjHC19auAZdzgDrCluQLo1YKNl1qTLFmi9DVceFZXCWLPmbChB5F08P9KgjHU9qXQ==",
+  "_location": "/cordova-plugin-gps-dialogs",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-gps-dialogs",
+    "name": "cordova-plugin-gps-dialogs",
+    "escapedName": "cordova-plugin-gps-dialogs",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-gps-dialogs/-/cordova-plugin-gps-dialogs-1.0.2.tgz",
+  "_shasum": "63da327874e0b4aa2334d68e237798be0537485e",
+  "_spec": "cordova-plugin-gps-dialogs",
+  "_where": "E:\\Ycash\\Ycash",
+  "author": {
+    "name": "Lakshman S"
+  },
+  "bugs": {
+    "url": "https://github.com/CetasLakshman/cordova-plugin-gps-dialogs/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-gps-dialogs",
+    "platforms": [
+      "android"
+    ]
+  },
+  "cordovaDependencies": {
+    "3.0.0": {
+      "cordova": ">100"
+    }
+  },
+  "deprecated": false,
+  "description": "Cordova GPS Dialog Plugin",
+  "homepage": "https://github.com/CetasLakshman/cordova-plugin-gps-dialogs#readme",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "gps"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-gps-dialogs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CetasLakshman/cordova-plugin-gps-dialogs.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
+}

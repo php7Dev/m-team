@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="nice-select.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/jquery.alertable.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Document</title>
+   
+</head>
+<body>
+    <div class="fader"></div>
+    <nav id="menu" class="menu">
+        <header>
+            <div class="menu-logo">
+                <div class="menu-logo-holder">
+                        <img src="menu-logo.png" alt="">
+                </div>
+                <div class="user-info">
+                    <h4 id="n">اسم الموظف</h4>
+                    <p id="t">المسمى الوظيفي</p>
+                </div>
+            </div>
+            <ul class="app-menu">
+                <li>
+                    <span>البيانات الشخصية</span>
+                    <i class="icon-user-outline"></i>
+                </li>
+                <li class="sub-menu-item coordinator">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>منسقين</span>
+                        <i class="icon-users"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li onclick="location.href='coordinator.html'">انشاء منسق</li>
+                    </ul>
+                </li>
+                <li class="sub-menu-item agent">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>وكلاء</span>
+                        <i class="icon-users-outline"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li onclick="location.href='agent.html'">انشاء وكيل</li>
+                        <li onclick="location.href='agent-account.html'">انشاء مستخدمين</li>
+                        <!--<li>تعديل وكيل</li>-->
+                        <li onclick="location.href='agent-rating.html'">تقييم وكيل</li>
+                    </ul>
+                </li>
+                <li onclick="location.href='location.html'">
+                        <span>إسقاط الموقع</span>
+                        <i class="icon-location-1"></i>
+                    </li>
+                    
+                    <li onclick="$.alertable.alert('ليست لديك الصلاحية');">
+                        <span>الصرف الميداني</span>
+                        <i class="icon-picture"></i>
+                    </li>
+
+                    <li onclick="location.href='about.html'">
+                    <span>عن التطبيق</span>
+                    <i class="icon-info-outline"></i>
+                </li>
+                <li id="logout">
+                    <span>خروج</span>
+                    <i class="icon-power-outline"></i>
+                </li>
+            </ul>
+        </header>
+    </nav>         
+    <main id="panel">
+        <header id="app-header">
+            <h4 class="title">البيانات الشخصية</h4>
+            <span class="js-slideout-toggle"><i class="icon-menu-outline"></i></span>
+        </header>
+        <div id="page-wrapper">
+            <div class="overlay">
+              <!--  <div class="popup">
+                    <p id="popup-info">يُرجى ملئ كافة البيانات</p>
+                    <button id="popup-dismiss">موافق</button>
+                </div>-->
+            </div>
+            <div id="brand">
+                <i class="icon-user-circle-o"></i>
+            </div>
+            <div class="data-holder">
+               <table id="tbl-data">
+                   <tr>
+                       <td>الاسم</td>
+                       <td id="uName">الاسم</td>
+                   </tr>
+                   <tr>
+                        <td>رقم الجوال</td>
+                        <td id="uMobile">777777777</td>
+                    </tr>
+                    <tr>
+                        <td>البريد الالكتروني</td>
+                        <td id="uEmail">example@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>المسمى الوظيفي</td>
+                        <td id="uType">المسمى الوظيفي</td>
+                    </tr>
+               </table>
+            </div>
+            <div class="pass-change">
+                <div class="title">
+                    <p>تغيير كلمة المرور</p>
+                    <i class="icon-down-open-big"></i>
+                </div>
+                <div class="toggle-pass">
+                    <div class="input-holder">
+                        <label>كلمة المرور الحالية</label>
+                        <input class="shifter static-input" type="password" id="pass">
+                        <i class="icon-eye"></i>
+                    </div>
+                    <div class="input-holder">
+                        <label>كلمة المرور الجديدة</label>
+                        <input class="shifter static-input" type="password" id="new-pass">
+                        <i class="icon-eye"></i>
+                    </div>
+                    <div class="input-holder">
+                        <label>تأكيد كلمة المرور الجديدة</label>
+                        <input class="shifter static-input" type="password" id="new-pass-confirm">
+                        <i class="icon-eye"></i>
+                    </div>
+                    <center>
+                        <button id="resetPass">
+                            <i class="paper icon-paper-plane"></i>
+                            <span id="save">حفظ</span>
+                            <i class="spinx"></i>
+                        </button>
+                    </center>
+                    
+                </div>
+                 
+                
+
+            </div>
+            
+        </div>
+    </main>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery.nice-select.js"></script>
+    <script src="slideout.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/jquery.alertable.min.js"></script>
+</body>
+</html>

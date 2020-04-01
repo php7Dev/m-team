@@ -1,0 +1,976 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="nice-select.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/jquery.alertable.css">
+
+    <title>Document</title>
+    <style>
+           @font-face{ 
+            font-family: 'JF Flat'; 
+            src: url('css/font/JF Flat Regular.ttf'); 
+        }
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                outline: none;
+                font-family: 'JF Flat'; 
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                        supported by Chrome, Opera and Firefox */
+            }
+            textarea{
+                resize: none;
+            }
+            #page-wrapper{
+                direction: rtl;
+                display: flex;
+                width: 100%;
+                flex-flow: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin-top: 20px;
+            }
+            .fader{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: #fff;
+                z-index: 10000;
+            }
+            .overlay{
+                display: none;
+                width: 100%;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+            }
+            .overlay .popup{
+                display: none;
+                width: 0;
+                height: 100px;
+                flex-flow: column;
+                justify-content: space-evenly;
+                align-items: center;
+                background: #fff;
+                border-radius: 25px;
+            }
+            #brand{
+                width: 200px;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            #brand i{
+                font-size: 60px;
+                color: #e92329;
+            }
+            .data-holder{
+                width: 92%;
+                display: flex;
+                flex-flow: row-reverse;
+                align-items: center;
+                direction: rtl;
+            }
+            .data-holder table{
+                width: 100%;
+                padding: 5px;
+                text-align: center;
+                font-size: 18px;
+            }
+            table,th,td{
+                border: 1px solid #e92329;
+                border-collapse: collapse;
+            }
+            td{
+                padding: 5px 0;
+            }
+            .input-holder{
+                margin-bottom: 25px;
+                width: 100%;
+                height: 100px;
+                border: 1px solid #e92329;
+                border-radius: 20px;
+                display: flex;
+                flex-flow: column;
+                position: relative;
+            }
+            .input-holder label {
+                color: #e92329;
+                font-size: 18px;
+                position: absolute;
+                top: 10%;
+                right: 5%;
+                z-index: 2;
+                pointer-events: none;
+                transition: .6s;
+            }
+            .input-holder .static-input {
+                direction: rtl;
+                color: #e92329;
+                font-size: 18px;
+                border: none;
+                width: 95%;
+                align-self: center;
+                position: absolute;
+                bottom: 25%;
+            }
+            .input-holder-1 .static {
+                color: #e92329;
+                font-size: 12px;
+                position: absolute;
+                top: -30%;
+                padding: 0 5px;
+                background: #fff;
+                font-weight: bold;
+            }
+            .input-holder i{
+                position: absolute;
+                z-index: 1;
+                color: #e92329;
+                font-size: 20px;
+                line-height: 50px;
+                margin-left: 5px;
+            }
+            .input-holder-1 .nice-select{
+                text-align: right !important;
+                align-self: center;
+                font-size: 18px;
+                color: #e92329;
+                position: absolute;
+                bottom: 0;
+                border: none;
+            }
+            .nice-select ul{
+                z-index: 10000;
+            }
+            .input-holder-1 .nice-select:after{
+                left: 12px !important;
+            }
+            .input-holder-1 .nice-select .option{
+                text-align: right;
+                z-index: 10000;
+            }
+            .input-holder-1 .static {
+                color: #e92329;
+                font-size: 12px;
+                position: absolute;
+                top: -30%;
+                padding: 0 5px;
+                background: #fff;
+                font-weight: bold;
+            }
+            .input-holder-1 select{
+                position: absolute;
+                bottom: 15%;
+                width: 95%;
+                align-self: center;
+            }
+            /*slideOut.js style*/
+    
+            body {
+                width: 100%;
+                height: 100%;
+            }
+            .slideout-menu {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 256px;
+                min-height: 100vh;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                z-index: 0;
+                display: none;
+            }
+            .slideout-menu-left {
+                left: 0;
+            }
+            .slideout-menu-right {
+                right: 0;
+            }
+            .slideout-panel {
+                position: relative;
+                z-index: 1;
+                will-change: transform;
+                background-color: #FFF; /* A background-color is required */
+                min-height: 100vh;
+            }
+            .slideout-open,
+            .slideout-open body,
+            .slideout-open .slideout-panel {
+                overflow: hidden;
+            }
+            .slideout-menu{
+                background: #e92329;
+            }
+            .slideout-open .slideout-menu {
+                display: block;
+            }
+            .panel:before {
+                content: '';
+                display: block;
+                background-color: rgba(0,0,0,0);
+                transition: background-color 0.5s ease-in-out;
+            }
+            .panel-open:before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: rgba(0,0,0,.5);
+                z-index: 9999;
+            }
+            #app-header{
+                position: sticky;
+                top: 0;
+                background: #e92329;
+                width: 100%;
+                height: 50px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                z-index: 100000;
+            }
+            .js-slideout-toggle{
+                position: sticky;
+                right: 1%;
+                color: #fff;
+                font-size: 22px;
+                z-index: 10000;
+                line-height: 50px;
+            }
+            .title{
+                font-size: 20px;
+                color: #fff;
+                text-align: center;
+                position: relative;
+                right: calc(52% - 96px);
+            }
+            #menu header{
+                display: flex;
+                flex-flow: column;
+            }
+            #menu header h2{
+                margin-top: 8px;
+                text-align: center;
+                color: #fff;
+            }
+            .app-menu{
+                width: 100%;
+                margin-top: 10px;
+            }
+            .app-menu li{
+                padding: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                color: #fff;
+                font-size: 16px;
+                transition: .6s;
+            }
+            .app-menu span{
+                margin-right: 15px;
+            }
+            .app-menu li:hover{
+                background: rgba(0, 0, 0, 0.4);
+            }
+            .sub-menu-item{
+                flex-flow: column;
+            }
+            .sub-menu-item-holder{
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                color: #fff;
+                font-size: 16px;
+                transition: .6s;
+            }
+            .sub-menu{
+                width: 100%;
+                display: none;
+            }
+            .down{
+                margin-right: auto;
+            }
+            .menu-logo{
+                width: 100%;
+                background: rgba(0,0,0,0.4);
+            }
+            .menu-logo-holder{
+                width: 100%;
+                height: 80px;
+            }
+            .menu-logo-holder img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .user-info{
+                text-align: right;
+                padding: 5px;
+                color: #fff;
+            }
+            .user-info h4{
+                width: 100%; 
+                font-size: 18px;
+                direction: rtl;
+                white-space: nowrap; 
+                overflow: hidden;
+                text-overflow: ellipsis; 
+                text-shadow: 1px 1px 4px #000;
+                margin-bottom: 5px;
+            }
+            .user-info p{
+                width: 100%;
+                font-size: 16px;
+                direction: rtl;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-shadow: 1px 1px 4px #000;
+            }
+            #see-pass{
+                z-index: 1;
+                font-size: 20px;
+                color: #e92329;
+                line-height: 50px;
+            }
+            .pass-change{
+                width: 90%;
+                display: flex;
+                flex-flow: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+            }
+            .pass-change .title{
+                display: flex;
+                flex-flow: row-reverse;
+                justify-content: center;
+                align-items: center;
+                color: #e92329;
+                margin-bottom: 10px;
+            }
+            .toggle-pass{
+                display: none;
+            }
+            #progress{
+                width: 40%;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            #progress span{
+                font-size: 18px;
+                font-weight: bold;
+                color: #505050;
+            }
+            #progress #start{
+                font-size: 18px;
+                font-weight: bold;
+                color: #e92329;
+            }
+            .tabs{
+                width: 100%;
+                padding: 5px;
+                overflow: hidden;
+            }
+            .tab{
+                width: 95%;
+                margin: 0 auto;
+            }
+            .tab:not(:first-of-type){
+                display: none;
+            }
+            .tab-header{
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                margin-bottom: 25px;
+            }
+            .tab-header h4{
+                color: #e92329;
+                font-size: 17px;
+                text-align: center;
+            }
+            .title-dec{
+                position: absolute;
+                bottom: -10px;
+                font-size: 20px;
+                color: #e92329;
+                font-weight: bold;
+            }
+            .tab-footer{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            .tab-next-btn{
+                border: none;
+                background: transparent;
+                color: #e92329;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .tab-footer span{
+                font-size: 18px;
+                color: #e2e1e1;
+                margin: 5px;
+            }
+            .tab-prev-btn{
+                border: none;
+                background: transparent;
+                color: #e2e1e1;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .toggle-token-type-rating{
+                border: 1px solid #e92329;
+                border-radius: 15px;
+                position: relative;
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                margin-bottom: 25px;
+            }
+            .rating-point{
+                position: absolute;
+                top: -20px;
+                background: #fff;
+                padding: 0 5px;
+                color: #e92329;
+                font-size: 18px;
+            }
+            .toggle-token-container{
+                padding: 15px 0;
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+            }
+            .toggle-token{
+                text-align: center;
+                width: 20%;
+                height: 35px;
+                border-radius: 20px;
+                color: #505050;
+                transition: .6s;
+            }
+            #rate-save-btn{
+                border: none;
+                background: transparent;
+                color: #e92329;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            /*slideOut.js style Ends here*/
+            .input-holder-1{
+                width: 100%;
+                height: 50px;
+                border: 1px solid #e92329;
+                border-radius: 10px;
+                display: flex;
+                flex-flow: column;
+                position: relative;
+                margin-bottom: 20px;
+            }
+            #refresh-data{
+                border: none;
+                background: transparent;
+                color: #e92329;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 10px 36% 30px;
+            }
+
+            #sep{
+                width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #sep p{
+            color: #e92329;
+            font-size: 14px;
+            margin: 0 6px;
+        }
+        #sep div{
+            height: 1.5px;
+            width: 15px;
+            background: #ccc;
+        }
+
+
+        </style>
+    
+</head>
+<body>
+    <div class="fader"></div>
+    <nav id="menu" class="menu">
+        <header>
+            <div class="menu-logo">
+                <div class="menu-logo-holder">
+                        <img src="menu-logo.png" alt="">
+                </div>
+                <div class="user-info">
+                    <h4 id="n">اسم الموظف</h4>
+                    <p id="t">المسمى الوظيفي</p>
+                </div>
+            </div>
+            <ul class="app-menu">
+                <li onclick="location.href='staff.html'">
+                    <span>البيانات الشخصية</span>
+                    <i class="icon-user-outline"></i>
+                </li>
+
+                <li class="sub-menu-item coordinator">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>منسقين</span>
+                        <i class="icon-users"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li  onclick="location.href='coordinator.html'">انشاء منسق</li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu-item agent">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>وكلاء</span>
+                        <i class="icon-users-outline"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li onclick="location.href='agent.html'">انشاء وكيل</li>
+                        <li onclick="location.href='agent-account.html'">انشاء مستخدمين</li>
+                        <!--<li>تعديل وكيل</li>-->
+                        <li>تقييم وكيل</li>
+                    </ul>
+                </li>
+                <li onclick="location.href='location.html'">
+                        <span>إسقاط الموقع</span>
+                        <i class="icon-location-1"></i>
+                    </li>
+                    <li onclick="$.alertable.alert('ليست لديك الصلاحية');">
+                        <span>الصرف الميداني</span>
+                        <i class="icon-picture"></i>
+                    </li>
+                <li onclick="location.href='about.html'">
+                    <span>عن التطبيق</span>
+                    <i class="icon-info-outline"></i>
+                </li>
+                <li id="logout">
+                    <span>خروج</span>
+                    <i class="icon-power-outline"></i>
+                </li>
+            </ul>
+        </header>
+    </nav>         
+    <main id="panel">
+        <header id="app-header">
+            <h4 class="title">تقييم وكيل</h4>
+            <span class="btn-hamburger js-slideout-toggle"><i class="icon-menu-outline"></i></span>
+        </header>
+        <div id="page-wrapper">
+
+                <div id="brand">
+                    <i class="icon-user-add"></i>
+                </div>
+                <div id="progress">
+                    <span id="start">1</span>
+                    <span>من</span>
+                    <span>5</span>
+                </div>
+                <div class="tabs">
+                    <div class="tab active" id="step-1">
+                        <header class="tab-header">
+                            <h4>التقييم</h4>
+                            <span class="title-dec">. . . . .</span>
+                        </header>
+                        <div class="tab-body">
+
+
+                            <div id="sep">
+                                <div></div>
+                                <p>بناءً على اختيارك للمناطق سيتم فرز الوكلاء</p>
+                                <div></div>
+                            </div>
+                            <div class="input-holder-1">
+                                    <label class="static">المحافظة *</label>
+                                    <select class="wide" id="agent-g">
+                                        <option data-display="إختر" value="0">أختر محافظة</option>
+                                       <option value="11">إب</option><option value="12">أبين</option>
+                                        <option value="13">امانة العاصمه</option>
+                                        <option value="14">البيضاء</option>
+                                        <option value="15">تعز</option>
+                                        <option value="16">الجوف</option>
+                                        <option value="17">حجة</option>
+                                        <option value="18">الحديدة</option>
+                                        <option value="19">حضرموت</option>
+                                        <option value="20">ذمار</option>
+                                        <option value="21">شبوة</option>
+                                        <option value="22">سعدة</option>
+                                        <option value="23">صنعاء</option>
+                                        <option value="24">عدن</option>
+                                        <option value="25">لحج</option>
+                                        <option value="26">مأرب</option>
+                                        <option value="27">المحويت</option>
+                                        <option value="28">المهرة</option>
+                                        <option value="29">عمران</option>
+                                        <option value="30">الضالع</option>
+                                        <option value="31">ريمة</option>
+                                        <option value="32">سقطرى</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder-1">
+                                    <label class="static">المديرية *</label>
+                                    <select class="wide" id="agent-d">
+                                        <option data-display="إختر" value="0">أختر مديرية</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder-1">
+                                    <label class="static">العزلة</label>
+                                    <select class="wide" id="agent-s">
+                                        <option data-display="إختر" value="">أختر عزلة</option>
+                                    </select>
+                                </div>
+                                <div class="input-holder-1">
+                                    <label class="static">القرية</label>
+                                    <select class="wide" id="agent-v">
+                                        <option data-display="إختر" value="">أختر قرية</option>
+                                    </select>
+                                </div>
+           
+                                
+                            
+<div class="input-holder-1">
+        <label class="static">الوكيل *</label>
+        <select class="wide" id="agent-user-agency">
+            <option data-display="إختر" value="0">اختر وكيل</option>
+        </select>
+    </div>
+    <button id="refresh-data">
+        <i class="icon-spin3"></i>
+        <span>تحديث</span>
+    </button>
+
+    
+                            <div class="toggle-token-type-rating" id="r-a-location" rate="">
+                                <p class="rating-point">موقع الوكيل</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-repo" rate="">
+                                <p class="rating-point">سمعة الوكيل في السوق</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-attitude" rate="">
+                                <p class="rating-point">تعامل موظفي الوكيل</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="tab-footer">
+                            <button class="tab-next-btn">التالي</button>
+                        </footer>
+                    </div>
+                    <div class="tab" id="step-2">
+                        <header class="tab-header">
+                            <h4>فهم آلية استخدام خدمة النقود الالكترونية</h4>
+                            <span class="title-dec">. . . . .</span>
+                        </header>
+                        <div class="tab-body">
+                            <div class="toggle-token-type-rating" id="r-a-bill-pay" rate="">
+                                <p class="rating-point">سداد الفواتير</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-local-trans" rate="">
+                                <p class="rating-point">الحوالات الداخلية (سداد - صرف)</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-external-trans" rate="">
+                                <p class="rating-point">الحوالات الخارجية (ارسال - صرف)</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-social-trans" rate="">
+                                <p class="rating-point">التحويلات الاجتماعية</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-with-depo" rate="">
+                                <p class="rating-point">السحب والايداع</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-archiving" rate="">
+                                <p class="rating-point">أرشفة الملفات والمستندات والأصول</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="tab-footer">
+                            <button class="tab-next-btn">التالي</button>
+                            <span>|</span>
+                            <button class="tab-prev-btn">السابق</button>
+                        </footer>
+                    </div>
+                    <div class="tab" id="step-3">
+                        <header class="tab-header">
+                            <h4>آلية التعامل مع العملاء</h4>
+                            <span class="title-dec">. . . . .</span>
+                        </header>
+                        <div class="tab-body">
+                            <div class="toggle-token-type-rating" id="r-a-polite-phone" rate="">
+                                <p class="rating-point">آداب التحدث في الهاتف</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-handle-problem-directly" rate="">
+                                <p class="rating-point">يتعامل مع المشاكل بصورة مباشرة</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-solve-problems" rate="">
+                                <p class="rating-point">يقوم بحل الخلافات</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-not-angry-in-pressure" rate="">
+                                <p class="rating-point">غير حاد الطباع تحت الضغط</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-clients-defending" rate="">
+                                <p class="rating-point">يدافع عن العملاء بشدة</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-not-selfish" rate="">
+                                <p class="rating-point">يضع التحيزات والرغبات الشخصية جانبًا</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-advisor" rate="">
+                                <p class="rating-point">يعطي نصائح جيدة وعملية</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-motivator" rate="">
+                                <p class="rating-point">يعزز الولاء لدى الموظفين</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-priorities-decider" rate="">
+                                <p class="rating-point">يحدد أولوية المهام وتنظيمها</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">يستجيب للمشكلات بشكل سريع وجيد</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">ممتاز</div>
+                                    <div class="toggle-token">جيد جدًا</div>
+                                    <div class="toggle-token">جيد</div>
+                                    <div class="toggle-token">ضعيف</div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="tab-footer">
+                            <button class="tab-next-btn">التالي</button>
+                            <span>|</span>
+                            <button class="tab-prev-btn">السابق</button>
+                        </footer>
+                    </div>
+                    <div class="tab" id="step-4">
+                        <header class="tab-header">
+                            <h4>أدوات الأمان</h4>
+                            <span class="title-dec">. . . . .</span>
+                        </header>
+                        <div class="tab-body">
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">يتوفر لديه مطفئة حرائق</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">نعم</div>
+                                    <div class="toggle-token">لا</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">يوجد سياج عازل بين الصراف والعملاء</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">نعم</div>
+                                    <div class="toggle-token">لا</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">تتوفر كاميرات مراقبة الصالة والمبنى</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">نعم</div>
+                                    <div class="toggle-token">لا</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">تتوفر عُدة الاسعافات الأولية</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">نعم</div>
+                                    <div class="toggle-token">لا</div>
+                                </div>
+                            </div>
+                            <div class="toggle-token-type-rating" id="r-a-fast-problems-solver" rate="">
+                                <p class="rating-point">تتوفر حراسة أمنية</p>
+                                <div class="toggle-token-container">  
+                                    <div class="toggle-token">نعم</div>
+                                    <div class="toggle-token">لا</div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="tab-footer">
+                            <button class="tab-next-btn">التالي</button>
+                            <span>|</span>
+                            <button class="tab-prev-btn">السابق</button>
+                        </footer>
+                    </div>
+                    <div class="tab" id="step-5">
+                        <header class="tab-header">
+                            <h4>إضافات أخرى</h4>
+                            <span class="title-dec">. . . . .</span>
+                        </header>
+                        <div class="tab-body">
+                            <div class="input-holder">
+                                <label>توصيات للعميل</label>
+                                <textarea class="shifter static-input" id="a-r-recomend"></textarea>
+                            </div>
+                            <div class="input-holder">
+                                <label>انطباعات عن العميل</label>
+                                <textarea class="shifter static-input" id="a-r-impression"></textarea>
+                            </div>
+                        </div>
+                        <footer class="tab-footer">
+                            <button id="rate-save-btn">تقييم</button>
+                            <span>|</span>
+                            <button class="tab-prev-btn">السابق</button>
+                        </footer>
+                    </div>
+                </div>
+        </div>
+    </main>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery.nice-select.js"></script>
+    <script src="slideout.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/jquery.alertable.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            var h = $(document).height();
+            $(".fader").css({height: h});
+
+        });
+    </script>
+    
+</body>
+</html>

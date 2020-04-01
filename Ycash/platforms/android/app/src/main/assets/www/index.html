@@ -1,0 +1,254 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="nice-select.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/jquery.alertable.css">
+   
+    
+    <title>Document</title>
+    <style>
+        @font-face{ 
+            font-family: 'JF Flat'; 
+            src: url('css/font/JF Flat Regular.ttf'); 
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            font-family: 'JF Flat'; 
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+        }
+        .overlay{
+            display: none;
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+        }
+        footer{
+            position:relative;
+            bottom: 0;
+          width: 100%;
+          text-align: center;
+         margin: 50px 0;
+        }
+        .overlay .popup{
+            display: none;
+            width: 0;
+            height: 100px;
+            flex-flow: column;
+            justify-content: space-evenly;
+            align-items: center;
+            background: #fff;
+            border-radius: 25px;
+        }
+
+        #splash{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 99999;
+            background: #fff;
+        }
+        #splash img{
+            opacity: 0;
+            width: 260px;
+            height: auto;
+            animation-name: hero;
+            animation-delay: 0.5s;
+            animation-duration: 3s;
+        }
+        @keyframes hero {
+            10%{opacity: 0.3;}
+            20%{opacity: 0.5;}
+            30%{opacity: 0.8;}
+            40%{opacity: 1;}
+            60%{opacity: 0.8;}
+            80%{opacity: 0.5;}
+            100%{opacity: 0;}
+        }
+        #page-wrapper{
+            display: none;
+            width: 100%;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #brand{
+            width: 200px;
+            height: 120px;
+            margin-top: 50px;
+            display: flex;
+           flex-direction: row;
+           justify-content: space-evenly;
+        }
+        #brand img{
+            max-width: 75%;
+            height: 60%;
+        }
+        .input-holder{
+            margin-bottom: 25px;
+            width: 300px;
+            height: 50px;
+            border: 1px solid #e92329;
+            border-radius: 5px;
+            display: flex;
+            flex-flow: column;
+            position: relative;
+        }
+        .input-holder label {
+            color: #e92329;
+            font-size: 18px;
+            position: absolute;
+            top: 15%;
+            right: 5%;
+            z-index: 999;
+            pointer-events: none;
+            transition: .6s;
+        }
+        .input-holder .static-input {
+            direction: rtl;
+            color: #e92329;
+            font-size: 18px;
+            border: none;
+            width: 95%;
+            align-self: center;
+            position: absolute;
+            bottom: 10%;
+        }
+        .input-holder .nice-select{
+            text-align: right !important;
+            align-self: center;
+            font-size: 18px;
+            color: #e92329;
+            position: absolute;
+            bottom: 0;
+            border: none;
+        }
+        .input-holder .nice-select:after{
+            left: 12px !important;
+        }
+        .input-holder .nice-select .option{
+            text-align: right;
+        }
+        .input-holder .static {
+            color: #e92329;
+            font-size: 12px;
+            position: absolute;
+            top: -30%;
+            padding: 0 5px;
+            background: #fff;
+            font-weight: bold;
+        }
+        button{
+            border: none;
+            width: 60%;
+            height: 45px;
+            background: #e92329;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            outline: none;
+        }
+        button:focus,button:active{
+            outline: none !important;
+        }
+        #error{
+            color: #e92329;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .preloader{
+            display: none;
+            color: #f7797d;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="splash">
+        <img src="logo1.png" alt="">
+    </div>
+
+    <div id="page-wrapper">
+            
+        <div class="overlay">
+                    <div class="popup">
+                        <p id="popup-info">يُرجى ملئ كافة البيانات</p>
+                        <button id="popup-dismiss">موافق</button>
+                    </div>
+                </div>
+
+        <div id="brand">
+            <img src="logo1.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;<img src="ykb.png" alt="">
+        </div>
+        <div class="input-holder">
+            <label>رقم الجوال</label>
+            <input class="shifter static-input" type="tel" id="mobile">
+        </div>
+        <div class="input-holder">
+            <label>كلمة المرور</label>
+            <input class="shifter static-input" type="password" id="pwd">
+        </div>
+        <div class="input-holder">
+            <label class="static"></label>
+            <select class="wide" id="type">
+                <option data-display="نوع المستخدم" value="0">نوع المستخدم</option>
+                <option value="staff">منسق</option>
+                <option value="agent">وكيل</option>
+            </select>
+        </div>
+        <p id="error"></p>
+
+        <button id="submit-data">
+            <span>تسجيل دخول</span>
+            <i class="icon-login"></i>
+        </button>
+        <div class="preloader"> 
+            <span>جاري التحقق من البيانات</span>
+            <i class="icon-spin4 animate-spin"></i>
+        </div>
+
+        <footer><img src="img/footer.png" width="64" height="64" />&nbsp;<span style="font-size:12px;">جميع حقوق النشر محفوظة ل</span></footer>
+    
+    </div>
+    
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery.nice-select.js"></script>
+    
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script src="js/jquery.alertable.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#splash").delay(3500).fadeOut(100,function(){
+                $("#page-wrapper").css({'display':'flex'}).fadeIn(600);
+            });
+        });
+    </script>
+</body>
+</html>

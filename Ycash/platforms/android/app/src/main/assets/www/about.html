@@ -1,0 +1,126 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/jquery.alertable.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Document</title>
+    
+</head>
+<body>
+    <div class="fader"></div>
+        <nav id="menu" class="menu">
+            <header>
+                <div class="menu-logo">
+                    <div class="menu-logo-holder">
+                            <img src="menu-logo.png" alt="">
+                    </div>
+                    <div class="user-info">
+                        <h4 id="n">اسم الموظف</h4>
+                        <p id="t">المسمى الوظيفي</p>
+                    </div>
+                </div>
+                
+                <ul class="app-menu">
+                    <li onclick="location.href='staff.html'">
+                        <span>البيانات الشخصية</span>
+                        <i class="icon-user-outline"></i>
+                    </li>
+                    <li class="sub-menu-item coordinator">
+                        <div class="sub-menu-item-holder">
+                            <i class="icon-down-open-1 down"></i>
+                            <span>منسقين</span>
+                            <i class="icon-users"></i>
+                        </div>
+                        <ul class="sub-menu">
+                            <li onclick="location.href='coordinator.html'">انشاء منسق</li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu-item agent">
+                        <div class="sub-menu-item-holder">
+                            <i class="icon-down-open-1 down"></i>
+                            <span>وكلاء</span>
+                            <i class="icon-users-outline"></i>
+                        </div>
+                        <ul class="sub-menu">
+                            <li onclick="location.href='agent.html'">انشاء وكيل</li>
+                            <li onclick="location.href='agent-account.html'">انشاء مستخدمين</li>
+                            <!--<li>تعديل وكيل</li>-->
+                            <li onclick="location.href='agent-rating.html'">تقييم وكيل</li>
+                        </ul>
+                    </li>
+                    <li onclick="location.href='location.html'">
+                            <span>إسقاط الموقع</span>
+                            <i class="icon-location-1"></i>
+                        </li>
+                        <li onclick="$.alertable.alert('ليست لديك الصلاحية');">
+                            <span>الصرف الميداني</span>
+                            <i class="icon-picture"></i>
+                        </li>
+                    <li>
+                        <span>عن التطبيق</span>
+                        <i class="icon-info-outline"></i>
+                    </li>
+                    <li id="logout">
+                        <span>خروج</span>
+                        <i class="icon-power-outline"></i>
+                    </li>
+                </ul>
+
+            </header>
+        </nav>
+        <main id="panel">
+            <header id="app-header">
+                <h4 class="title">عن التطبيق</h4>
+                <span class="btn-hamburger js-slideout-toggle"><i class="icon-menu-outline"></i></span>
+            </header>
+            <div id="page-wrapper">
+                <div id="brand">
+                    <img src="logo1.png" alt="">
+                </div>
+                <div id="about-wrapper">
+                    <p>
+                            تطبيق تسجيل الوكلاء والمنسقين تطبيق خاص بالشركة الوطنية للتحويلات النقدية، الشركة هي مبادرة من بنك اليمن والكويت كأول شركة متخصصة في التحويلات الإنسانية.
+                    </p>
+                    <div class="detail">
+                        <p>لمحة عامة عن التطبيق</p>
+                        <div class="v-line">
+                            <div class="row"><div class="timeline-indicator">1</div><p class="line-info">انشاء المستخدم لمنسقي شبكة التحويلات الإنسانية.</p></div>
+                            <div class="row"><div class="timeline-indicator">2</div><p class="line-info">انشاء المستخدم لأعضاء شبكة وكلاء التحويلات النقدية الإنسانية.</p></div>
+                            <div class="row"><div class="timeline-indicator">3</div><p class="line-info">إدارة المستخدمين.</p></div>
+                            <div class="row"><div class="timeline-indicator">4</div><p class="line-info">تقييم قدرات الوكلاء.</p></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <p>الخدمات المشمولة</p>
+                        <div class="v-line">
+                            <div class="row"><div class="timeline-indicator">1</div><p class="line-info">إدارة الحساب.</p></div>
+                            <div class="row"><div class="timeline-indicator">2</div><p class="line-info">بيانات جغرافية دقيقة.</p></div>
+                            <div class="row"><div class="timeline-indicator">3</div><p class="line-info">رسم خرائط المواقع للعملاء.</p></div>
+                            <div class="row"><div class="timeline-indicator">4</div><p class="line-info">تقييم قدرات واستعداد الوكلاء.</p></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <p>أهداف تقديم الخدمات</p>
+                        <div class="v-line">
+                            <div class="row"><div class="timeline-indicator">1</div><p>لتمكين الوصول إلى منسقي ووكلاء الشبكة من خلال بيانات وتفاصيل جهات الاتصال والمواقع الخاصة بهم.</p></div>
+                            <div class="row"><div class="timeline-indicator">2</div><p>تمثيل قدرات المؤسسات المالية بشفافية.</p></div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="slideout.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/jquery.alertable.min.js"></script>
+</body>
+</html>

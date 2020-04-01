@@ -1,0 +1,175 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="nice-select.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <link rel="stylesheet" href="css/jquery.alertable.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+   
+</head>
+<body>
+    <div class="fader"></div>
+    
+    <nav id="menu" class="menu">
+        <header>
+            <div class="menu-logo">
+                <div class="menu-logo-holder">
+                        <img src="menu-logo.png" alt="">
+                </div>
+                <div class="user-info">
+                    <h4 id="n">اسم الموظف</h4>
+                    <p id="t">المسمى الوظيفي</p>
+                </div>
+            </div>
+            <ul class="app-menu">
+                <li onclick="location.href='staff.html'">
+                    <span>البيانات الشخصية</span>
+                    <i class="icon-user-outline"></i>
+                </li>
+
+                <li class="sub-menu-item coordinator">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>منسقين</span>
+                        <i class="icon-users"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li  onclick="location.href='coordinator.html'">انشاء منسق</li>
+                    </ul>
+                </li>
+
+                <li class="sub-menu-item agent">
+                    <div class="sub-menu-item-holder">
+                        <i class="icon-down-open-1 down"></i>
+                        <span>وكلاء</span>
+                        <i class="icon-users-outline"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li onclick="location.href='agent.html'">انشاء وكيل</li>
+                        <li onclick="location.href='agent-account.html'">انشاء مستخدمين</li>
+                        <!--<li>تعديل وكيل</li>-->
+                        <li onclick="location.href='agent-rating.html'">تقييم وكيل</li>
+                    </ul>
+                </li>
+                <li>
+                        <span>إسقاط الموقع</span>
+                        <i class="icon-location-1"></i>
+                    </li>
+                    <li onclick="$.alertable.alert('ليست لديك الصلاحية');">
+                        <span>الصرف الميداني</span>
+                        <i class="icon-picture"></i>
+                    </li>
+                <li onclick="location.href='about.html'">
+                    <span>عن التطبيق</span>
+                    <i class="icon-info-outline"></i>
+                </li>
+                <li id="logout">
+                    <span>خروج</span>
+                    <i class="icon-power-outline"></i>
+                </li>
+            </ul>
+        </header>
+    </nav> 
+          
+    <main id="panel">
+        <header id="app-header">
+            <h4 class="title">اسقاط الموقع</h4>
+            <span class="btn-hamburger js-slideout-toggle"><i class="icon-menu-outline"></i></span>
+        </header>
+        <div id="page-wrapper">
+            <div class="overlay">
+                <div class="popup">
+                    <p id="popup-info">يُرجى ملئ كافة البيانات</p>
+                    <button id="popup-dismiss">موافق</button>
+                </div>
+            </div>
+            <div class="inputs-wrapper">
+                <div class="input-holder">
+                    <label class="static">خط الطول</label>
+                    <input class="shifter static-input" type="text" id="long" readonly=true>
+                </div>
+                <div class="input-holder">
+                    <label class="static">خط العرض</label>
+                    <input class="shifter static-input" type="text" id="lat" readonly=true>
+                </div>
+                
+            <button id="location-graber">
+                    <span>حدد موقعك</span>
+                    <i class="icon-location-1"></i>
+                </button>
+
+                <div class="input-holder">
+                    <label class="static">المحافظة *</label>
+                    <select class="wide" id="agent-g">
+                        <option data-display="إختر" value="0">أختر محافظة</option>
+                        <option value="11">إب</option><option value="12">أبين</option>
+                        <option value="13">امانة العاصمه</option>
+                        <option value="14">البيضاء</option>
+                        <option value="15">تعز</option>
+                        <option value="16">الجوف</option>
+                        <option value="17">حجة</option>
+                        <option value="18">الحديدة</option>
+                        <option value="19">حضرموت</option>
+                        <option value="20">ذمار</option>
+                        <option value="21">شبوة</option>
+                        <option value="22">سعدة</option>
+                        <option value="23">صنعاء</option>
+                        <option value="24">عدن</option>
+                        <option value="25">لحج</option>
+                        <option value="26">مأرب</option>
+                        <option value="27">المحويت</option>
+                        <option value="28">المهرة</option>
+                        <option value="29">عمران</option>
+                        <option value="30">الضالع</option>
+                        <option value="31">ريمة</option>
+                        <option value="32">سقطرى</option>
+                    </select>
+                </div>
+                <div class="input-holder">
+                    <label class="static">المديرية *</label>
+                    <select class="wide" id="agent-d">
+                        <option data-display="إختر" value="0">أختر مديرية</option>
+                    </select>
+                </div>
+                <div class="input-holder">
+                    <label class="static">العزلة</label>
+                    <select class="wide" id="agent-s">
+                        <option data-display="إختر" value="">أختر عزلة</option>
+                    </select>
+                </div>
+                <div class="input-holder">
+                    <label class="static">القرية</label>
+                    <select class="wide" id="agent-v">
+                        <option data-display="إختر" value="">أختر قرية</option>
+                    </select>
+                </div>
+
+                <div class="input-holder">
+                        <label>اقرب معلم*</label>
+                        <input class="shifter static-input" type="text" id="near-place">
+                    </div>
+
+            </div>
+            <button id="save-location">
+                <span>حفظ</span>
+                <i class="icon-location-1"></i>
+            </button>
+        </div>
+       <!-- <div id="map-wrapper"></div>
+        <button id="get-location-by-map">
+            <i class="icon-location-1"></i>
+        </button>-->
+    </main>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery.nice-select.js"></script>
+    <script src="slideout.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/jquery.alertable.min.js"></script>
+    
+</body>
+</html>
